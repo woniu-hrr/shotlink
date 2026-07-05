@@ -1,6 +1,5 @@
-import { useState } from 'react'
 import { Outlet, useNavigate, useLocation } from 'react-router-dom'
-import { Layout, Menu, Button, Avatar, Dropdown, Space } from 'antd'
+import { Layout, Menu, Button, Avatar, Dropdown, Space, message } from 'antd'
 import {
   HomeOutlined,
   SearchOutlined,
@@ -10,14 +9,15 @@ import {
   LogoutOutlined,
   CameraOutlined,
 } from '@ant-design/icons'
+import { useAuthStore } from '../stores/authStore'
+import { authApi } from '../api/authApi'
 
 const { Header, Content, Footer } = Layout
 
 const MainLayout = () => {
   const navigate = useNavigate()
   const location = useLocation()
-  // Temporarily mock auth state (Phase 2 will replace with real auth)
-  const [isAuthenticated] = useState(false)
+  const { user, isAuthenticated, logout } = useAuthStore()
 
   const menuItems = [
     { key: '/', icon: <HomeOutlined />, label: '首页' },
@@ -25,18 +25,27 @@ const MainLayout = () => {
     { key: '/community', icon: <TeamOutlined />, label: '摄影社区' },
   ]
 
-  const userMenuItems = isAuthenticated
-    ? [
-        { key: 'dashboard', icon: <DashboardOutlined />, label: '工作台' },
-        { key: 'settings', icon: <UserOutlined />, label: '个人设置' },
-        { type: 'divider' as const },
-        { key: 'logout', icon: <LogoutOutlined />, label: '退出登录', danger: true },
-      ]
-    : []
+  const handleLogout = async () => {
+    try {
+      await authApi.logout()
+    } catch (e) {
+      // ignore
+    }
+    logout()
+    message.success('已退出登录')
+    navigate('/')
+  }
 
-  const handleMenuClick = (key: string) => {
+  const userMenuItems = [
+    { key: 'dashboard', icon: <DashboardOutlined />, label: '工作台' },
+    { key: 'settings', icon: <UserOutlined />, label: '个人设置' },
+    { type: 'divider' as const },
+    { key: 'logout', icon: <LogoutOutlined />, label: '退出登录', danger: true },
+  ]
+
+  const handleUserMenuClick = (key: string) => {
     if (key === 'logout') {
-      // TODO: Phase 2 logout logic
+      handleLogout()
     } else {
       navigate(`/${key}`)
     }
@@ -83,14 +92,17 @@ const MainLayout = () => {
         </div>
 
         <Space>
-          {isAuthenticated ? (
+          {isAuthenticated && user ? (
             <Dropdown
               menu={{
                 items: userMenuItems,
-                onClick: ({ key }) => handleMenuClick(key),
+                onClick: ({ key }) => handleUserMenuClick(key),
               }}
             >
-              <Avatar icon={<UserOutlined />} style={{ cursor: 'pointer', backgroundColor: '#1677ff' }} />
+              <Space style={{ cursor: 'pointer' }}>
+                <Avatar icon={<UserOutlined />} style={{ backgroundColor: '#1677ff' }} />
+                <span>{user.name}</span>
+              </Space>
             </Dropdown>
           ) : (
             <>
