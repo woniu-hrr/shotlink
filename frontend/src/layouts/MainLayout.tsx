@@ -3,6 +3,7 @@ import { Layout, Menu, Button, Avatar, Dropdown, Space, message } from 'antd'
 import {
   HomeOutlined,
   SearchOutlined,
+  PictureOutlined,
   TeamOutlined,
   DashboardOutlined,
   UserOutlined,
@@ -22,6 +23,7 @@ const MainLayout = () => {
   const menuItems = [
     { key: '/', icon: <HomeOutlined />, label: '首页' },
     { key: '/photographers', icon: <SearchOutlined />, label: '找摄影师' },
+    { key: '/portfolios', icon: <PictureOutlined />, label: '作品广场' },
     { key: '/community', icon: <TeamOutlined />, label: '摄影社区' },
   ]
 
