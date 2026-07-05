@@ -8,6 +8,7 @@ import PortfolioListPage from './pages/portfolios/PortfolioListPage'
 import PortfolioDetailPage from './pages/portfolios/PortfolioDetailPage'
 import BookingListPage from './pages/dashboard/BookingListPage'
 import BookingCreatePage from './pages/dashboard/BookingCreatePage'
+import DashboardPage from './pages/dashboard/DashboardPage'
 import CommunityListPage from './pages/community/CommunityListPage'
 import PostDetailPage from './pages/community/PostDetailPage'
 import PostCreatePage from './pages/community/PostCreatePage'
@@ -27,7 +28,7 @@ function App() {
         <Route path="/community" element={<CommunityListPage />} />
         <Route path="/community/new" element={<PostCreatePage />} />
         <Route path="/community/:id" element={<PostDetailPage />} />
-        <Route path="/dashboard" element={<BookingListPage />} />
+        <Route path="/dashboard" element={<DashboardPage />} />
         <Route path="/dashboard/bookings" element={<BookingListPage />} />
         <Route path="/dashboard/bookings/new" element={<BookingCreatePage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
