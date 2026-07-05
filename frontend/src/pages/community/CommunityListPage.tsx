@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Card, Typography, Tag, Space, Button, Spin, Empty, Tabs } from 'antd'
 import { EyeOutlined, LikeOutlined, CommentOutlined, PlusOutlined } from '@ant-design/icons'
-import { communityApi, CommunityPost } from '../../api/communityApi'
+import { communityApi } from '../../api/communityApi'
+import type { CommunityPost } from '../../api/communityApi'
 import dayjs from 'dayjs'
 
 const { Title, Paragraph } = Typography

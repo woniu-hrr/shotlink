@@ -4,8 +4,10 @@ import { Row, Col, Card, Statistic, Typography, Spin, Tabs, Table, Button, Tag, 
 import {
   CalendarOutlined, TeamOutlined, DollarOutlined, ClockCircleOutlined,
 } from '@ant-design/icons'
-import { crmApi, DashboardStats } from '../../api/crmApi'
-import { bookingApi, Booking } from '../../api/bookingApi'
+import { crmApi } from '../../api/crmApi'
+import type { DashboardStats } from '../../api/crmApi'
+import { bookingApi } from '../../api/bookingApi'
+import type { Booking } from '../../api/bookingApi'
 import { useAuthStore } from '../../stores/authStore'
 import dayjs from 'dayjs'
 

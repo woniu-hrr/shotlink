@@ -4,7 +4,8 @@ import { Card, Row, Col, Typography, Tag, Select, Slider, Radio, Spin, Empty, Ra
 import {
   EnvironmentOutlined, SearchOutlined, StarOutlined, ShoppingOutlined,
 } from '@ant-design/icons'
-import { photographerApi, PhotographerProfile } from '../../api/photographerApi'
+import { photographerApi } from '../../api/photographerApi'
+import type { PhotographerProfile } from '../../api/photographerApi'
 
 const { Title, Paragraph, Text } = Typography
 

@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react'
 import { Card, Row, Col, Typography, Tag, Spin, Empty, Input } from 'antd'
 import { EyeOutlined, HeartOutlined, PictureOutlined, SearchOutlined } from '@ant-design/icons'
 import { useNavigate } from 'react-router-dom'
-import { portfolioApi, Portfolio } from '../../api/portfolioApi'
+import { portfolioApi } from '../../api/portfolioApi'
+import type { Portfolio } from '../../api/portfolioApi'
 
 const { Title, Paragraph } = Typography
 const { Meta } = Card

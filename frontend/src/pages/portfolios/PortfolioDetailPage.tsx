@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { Typography, Tag, Spin, Button, Space, Image, Row, Col } from 'antd'
 import { ArrowLeftOutlined, EyeOutlined, PictureOutlined } from '@ant-design/icons'
-import { portfolioApi, Portfolio } from '../../api/portfolioApi'
+import { portfolioApi } from '../../api/portfolioApi'
+import type { Portfolio } from '../../api/portfolioApi'
 
 const { Title, Paragraph } = Typography
 
