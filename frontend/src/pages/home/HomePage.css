@@ -204,7 +204,7 @@
   max-width: 1400px; margin: 0 auto;
 }
 .gallery-item {
-  position: relative; cursor: pointer; overflow: hidden; border-radius: 8px;
+  position: relative; cursor: pointer; overflow: hidden;
   transition: transform 0.3s;
 }
 .gallery-item:hover { transform: scale(1.03); z-index: 5; }
@@ -221,22 +221,6 @@
 .gallery-item:hover .gi-info { transform: translateY(0); }
 .gi-info strong { display: block; font-size: 15px; }
 .gi-info span { font-size: 12px; color: rgba(255,255,255,0.6); }
-
-/* ========================================
-   CTA
-   ======================================== */
-.cta-full {
-  position: relative; text-align: center; padding: 100px 24px;
-  background: #050510; overflow: hidden;
-}
-.cta-glow {
-  position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
-  width: 600px; height: 400px;
-  background: radial-gradient(ellipse, rgba(102,126,234,0.15), transparent);
-}
-.cta-full h2 { color: #fff; font-size: 42px; font-weight: 800; position: relative; z-index: 1; }
-.cta-full p { color: rgba(255,255,255,0.5); font-size: 18px; margin: 16px 0 36px; position: relative; z-index: 1; }
-.cta-actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; position: relative; z-index: 1; }
 
 /* ========================================
    Responsive

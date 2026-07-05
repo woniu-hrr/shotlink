@@ -165,12 +165,8 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* ========== GALLERY Strip ========== */}
+      {/* ========== Works Gallery ========== */}
       <section className="section-gallery">
-        <div className="bento-header">
-          <span className="section-label">FEATURED</span>
-          <Title level={2} style={{ color: '#fff' }}>精选作品</Title>
-        </div>
         {loading ? (
           <div style={{ textAlign: 'center', padding: 80 }}><Spin size="large" /></div>
         ) : (
@@ -189,21 +185,6 @@ const HomePage = () => {
             ))}
           </div>
         )}
-      </section>
-
-      {/* ========== CTA ========== */}
-      <section className="cta-full">
-        <div className="cta-glow" />
-        <h2>准备好找到你的摄影师了吗？</h2>
-        <p>免费注册 · 浏览作品 · 在线预约 · 一站式完成</p>
-        <div className="cta-actions">
-          <button className="btn-neon btn-neon-lg" onClick={() => navigate('/register')}>
-            立即免费注册
-          </button>
-          <button className="btn-ghost-light btn-ghost-lg" onClick={() => navigate('/photographers')}>
-            先看看摄影师
-          </button>
-        </div>
       </section>
     </div>
   )
