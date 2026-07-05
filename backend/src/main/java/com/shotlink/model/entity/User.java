@@ -1,5 +1,6 @@
 package com.shotlink.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.shotlink.model.enums.UserRole;
 import jakarta.persistence.*;
 import lombok.*;
@@ -20,6 +21,7 @@ public class User {
     @Column(nullable = false, unique = true)
     private String email;
 
+    @JsonIgnore
     @Column(name = "password_hash", nullable = false)
     private String passwordHash;
 

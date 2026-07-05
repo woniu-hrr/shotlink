@@ -35,12 +35,14 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.GET, "/api/v1/photographers/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/v1/portfolios/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/v1/posts/**").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/v1/files/**").permitAll()
                 // Swagger / Actuator
                 .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/actuator/**").permitAll()
                 // Admin endpoints
                 .requestMatchers("/api/v1/admin/**").hasRole("ADMIN")
-                // Photographer endpoints (precise control done via @PreAuthorize in controllers)
+                // Photographer endpoints
                 .requestMatchers(HttpMethod.POST, "/api/v1/portfolios/**").hasRole("PHOTOGRAPHER")
+                .requestMatchers(HttpMethod.DELETE, "/api/v1/portfolios/**").hasRole("PHOTOGRAPHER")
                 // All other endpoints require authentication
                 .anyRequest().authenticated()
             )
