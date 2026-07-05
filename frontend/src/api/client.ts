@@ -1,7 +1,9 @@
 import axios from 'axios'
 
+const isProduction = import.meta.env.PROD
+
 const apiClient = axios.create({
-  baseURL: '/api/v1',
+  baseURL: isProduction ? 'http://localhost:9090/api/v1' : '/api/v1',
   timeout: 30000,
   headers: {
     'Content-Type': 'application/json',
@@ -26,7 +28,6 @@ apiClient.interceptors.response.use(
   async (error) => {
     const originalRequest = error.config
 
-    // If 401 and not already retried, try refresh token
     if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true
 
@@ -34,7 +35,8 @@ apiClient.interceptors.response.use(
         const refreshToken = localStorage.getItem('refreshToken')
         if (!refreshToken) throw new Error('No refresh token')
 
-        const response = await axios.post('/api/v1/auth/refresh', {
+        const baseUrl = isProduction ? 'http://localhost:9090/api/v1' : '/api/v1'
+        const response = await axios.post(`${baseUrl}/auth/refresh`, {
           refreshToken,
         })
 
@@ -45,7 +47,6 @@ apiClient.interceptors.response.use(
         originalRequest.headers.Authorization = `Bearer ${accessToken}`
         return apiClient(originalRequest)
       } catch (refreshError) {
-        // Refresh failed — clear tokens and redirect to login
         localStorage.removeItem('accessToken')
         localStorage.removeItem('refreshToken')
         window.location.href = '/login'

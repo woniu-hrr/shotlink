@@ -7,13 +7,13 @@ import type { CommunityPost, CommunityComment } from '../../api/communityApi'
 import { useAuthStore } from '../../stores/authStore'
 import dayjs from 'dayjs'
 
-const { Title, Paragraph, Text } = Typography
+const { Title, Text } = Typography
 const { TextArea } = Input
 
 const PostDetailPage = () => {
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
-  const { user, isAuthenticated } = useAuthStore()
+  const { isAuthenticated } = useAuthStore()
   const [post, setPost] = useState<CommunityPost | null>(null)
   const [comments, setComments] = useState<CommunityComment[]>([])
   const [liked, setLiked] = useState(false)

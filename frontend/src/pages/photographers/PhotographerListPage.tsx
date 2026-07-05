@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Card, Row, Col, Typography, Tag, Select, Slider, Radio, Spin, Empty, Rate, Input } from 'antd'
+import { Card, Row, Col, Typography, Tag, Select, Slider, Spin, Empty, Rate } from 'antd'
 import {
-  EnvironmentOutlined, SearchOutlined, StarOutlined, ShoppingOutlined,
+  EnvironmentOutlined, ShoppingOutlined,
 } from '@ant-design/icons'
 import { photographerApi } from '../../api/photographerApi'
 import type { PhotographerProfile } from '../../api/photographerApi'
 
-const { Title, Paragraph, Text } = Typography
+const { Title, Text } = Typography
 
 const PROVINCES = ['Beijing', 'Shanghai', 'Guangdong', 'Zhejiang', 'Jiangsu', 'Sichuan', 'Hubei']
 const STYLE_OPTIONS = [

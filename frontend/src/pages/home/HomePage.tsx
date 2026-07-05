@@ -1,13 +1,13 @@
-import { Typography, Col } from 'antd'
+import { Typography } from 'antd'
 import {
   RightOutlined, StarFilled, FireOutlined, ThunderboltOutlined,
-  PictureOutlined, SearchOutlined, CameraOutlined,
+  PictureOutlined, SearchOutlined,
 } from '@ant-design/icons'
 import { useNavigate } from 'react-router-dom'
 import ParticleBackground from '../../components/ParticleBackground'
 import './HomePage.css'
 
-const { Title, Paragraph } = Typography
+const { Title } = Typography
 
 const TAGS = ['婚纱摄影', '个人写真', '风光大片', '商业摄影', '街拍', '旅拍', '亲子', '宠物', '婚礼跟拍', '毕业照']
 
