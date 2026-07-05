@@ -1,12 +1,9 @@
-import { useEffect, useState, useRef } from 'react'
-import { Typography, Row, Col, Button, Spin } from 'antd'
+import { Typography, Col } from 'antd'
 import {
   RightOutlined, StarFilled, FireOutlined, ThunderboltOutlined,
   PictureOutlined, SearchOutlined, CameraOutlined,
 } from '@ant-design/icons'
 import { useNavigate } from 'react-router-dom'
-import { portfolioApi } from '../../api/portfolioApi'
-import type { Portfolio } from '../../api/portfolioApi'
 import ParticleBackground from '../../components/ParticleBackground'
 import './HomePage.css'
 
@@ -14,18 +11,17 @@ const { Title, Paragraph } = Typography
 
 const TAGS = ['婚纱摄影', '个人写真', '风光大片', '商业摄影', '街拍', '旅拍', '亲子', '宠物', '婚礼跟拍', '毕业照']
 
+const PLACEHOLDER_WORKS = [
+  { title: '极光之恋', category: '婚纱摄影', image: 'https://images.unsplash.com/photo-1519741497674-611481863552?w=600&h=400&fit=crop' },
+  { title: '城市剪影', category: '街拍', image: 'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=600&h=400&fit=crop' },
+  { title: '山海之约', category: '旅拍', image: 'https://images.unsplash.com/photo-1502791451862-7bd8c1df43a7?w=600&h=400&fit=crop' },
+  { title: '时光定格', category: '个人写真', image: 'https://images.unsplash.com/photo-1492725764893-90b379c2b6e7?w=600&h=400&fit=crop' },
+  { title: '暮光森林', category: '风光摄影', image: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=600&h=400&fit=crop' },
+  { title: '鎏金岁月', category: '商业摄影', image: 'https://images.unsplash.com/photo-1517457373958-b7bdd4587205?w=600&h=400&fit=crop' },
+]
+
 const HomePage = () => {
   const navigate = useNavigate()
-  const [popularWorks, setPopularWorks] = useState<Portfolio[]>([])
-  const [loading, setLoading] = useState(true)
-  const statsRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    portfolioApi.getPopular().then((res) => {
-      setPopularWorks(res.data.data || [])
-      setLoading(false)
-    }).catch(() => setLoading(false))
-  }, [])
 
   return (
     <div className="home-page">
@@ -167,24 +163,17 @@ const HomePage = () => {
 
       {/* ========== Works Gallery ========== */}
       <section className="section-gallery">
-        {loading ? (
-          <div style={{ textAlign: 'center', padding: 80 }}><Spin size="large" /></div>
-        ) : (
-          <div className="gallery-strip">
-            {popularWorks.slice(0, 6).map((p) => (
-              <div key={p.id} className="gallery-item" onClick={() => navigate(`/portfolios/${p.id}`)}>
-                <div className="gi-img"
-                  style={p.coverUrl ? { backgroundImage: `url(${p.coverUrl})` } : undefined}>
-                  {!p.coverUrl && <PictureOutlined />}
-                </div>
-                <div className="gi-info">
-                  <strong>{p.title}</strong>
-                  <span>{p.viewCount} 浏览</span>
-                </div>
+        <div className="gallery-strip">
+          {PLACEHOLDER_WORKS.map((work, i) => (
+            <div key={i} className="gallery-item" onClick={() => navigate('/portfolios')}>
+              <div className="gi-img" style={{ backgroundImage: `url(${work.image})` }} />
+              <div className="gi-info">
+                <strong>{work.title}</strong>
+                <span>{work.category}</span>
               </div>
-            ))}
-          </div>
-        )}
+            </div>
+          ))}
+        </div>
       </section>
     </div>
   )
