@@ -6,15 +6,17 @@ import RegisterPage from './pages/auth/RegisterPage'
 import PhotographerListPage from './pages/photographers/PhotographerListPage'
 import PortfolioListPage from './pages/portfolios/PortfolioListPage'
 import PortfolioDetailPage from './pages/portfolios/PortfolioDetailPage'
+import BookingListPage from './pages/dashboard/BookingListPage'
+import BookingCreatePage from './pages/dashboard/BookingCreatePage'
 
 function App() {
   return (
     <Routes>
-      {/* Auth pages — no layout */}
+      {/* Auth pages */}
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
 
-      {/* Main pages — with layout */}
+      {/* Main pages */}
       <Route element={<MainLayout />}>
         <Route path="/" element={<HomePage />} />
         <Route path="/photographers" element={<PhotographerListPage />} />
@@ -22,7 +24,9 @@ function App() {
         <Route path="/portfolios/:id" element={<PortfolioDetailPage />} />
         <Route path="/photographers/:id" element={<PortfolioDetailPage />} />
         <Route path="/community" element={<div style={{ padding: 48 }}>摄影社区 (Phase 6)</div>} />
-        <Route path="/dashboard" element={<div style={{ padding: 48 }}>工作台 (即将开放)</div>} />
+        <Route path="/dashboard" element={<BookingListPage />} />
+        <Route path="/dashboard/bookings" element={<BookingListPage />} />
+        <Route path="/dashboard/bookings/new" element={<BookingCreatePage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Route>
     </Routes>
