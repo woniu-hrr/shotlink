@@ -119,80 +119,48 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* ========== BENTO Features ========== */}
-      <section className="section-bento">
+      {/* ========== Features — Clean 3-Column ========== */}
+      <section className="section-features">
         <div className="bento-header">
           <span className="section-label">WHY SHOTLINK</span>
-          <Title level={2} style={{ color: '#fff' }}>为什么选择 ShotLink？</Title>
-          <Paragraph style={{ color: 'rgba(255,255,255,0.5)', fontSize: 16 }}>
-            不只是找摄影师 — 而是完整的摄影服务平台
-          </Paragraph>
+          <Title level={2}>为什么选择 ShotLink？</Title>
         </div>
 
-        <div className="bento-grid">
-          {/* Row 1+2 Left — Large */}
-          <div className="bento-card bento-xl" onClick={() => navigate('/photographers')}>
-            <div className="bento-bg bento-bg-1"><div className="bento-pattern" /></div>
-            <div className="bento-content">
-              <div className="bento-badge">AI 驱动</div>
-              <CameraOutlined className="bento-icon" />
-              <h3>智能匹配摄影师</h3>
-              <p>输入需求、风格和预算，AI 自动推荐最合适的摄影师</p>
-              <div className="bento-stats">
-                <div><strong>3,200+</strong><span>认证摄影师</span></div>
-                <div><strong>98%</strong><span>匹配满意度</span></div>
-                <div><strong>2min</strong><span>精准匹配</span></div>
-              </div>
-              <span className="bento-link">开始匹配 <RightOutlined /></span>
+        <div className="features-grid">
+          <div className="feature-card" onClick={() => navigate('/photographers')}>
+            <div className="feature-icon-box">
+              <SearchOutlined />
             </div>
+            <h3>智能匹配</h3>
+            <p>AI 根据风格和预算自动推荐最合适的摄影师</p>
+            <span className="feature-stat">3,200+ 认证摄影师</span>
           </div>
 
-          {/* Row 1+2 Middle — Tall */}
-          <div className="bento-card bento-tall" onClick={() => navigate('/community')}>
-            <div className="bento-bg bento-bg-2"><div className="bento-pattern" /></div>
-            <div className="bento-content">
-              <div>
-                <div className="bento-badge">热门</div>
-                <FireOutlined className="bento-icon" />
-                <h3>摄影社区</h3>
-                <p>10 万+ 摄影师交流技巧、分享作品</p>
-              </div>
-              <div className="bento-avatars">
-                <div className="bento-avatar a1" />
-                <div className="bento-avatar a2" />
-                <div className="bento-avatar a3" />
-                <div className="bento-avatar a4" />
-                <span className="bento-avatar-count">+2.8k 在线</span>
-              </div>
+          <div className="feature-card" onClick={() => navigate('/community')}>
+            <div className="feature-icon-box">
+              <FireOutlined />
             </div>
+            <h3>摄影社区</h3>
+            <p>与 10 万+ 摄影师交流技巧、分享作品</p>
+            <span className="feature-stat">2.8k 在线讨论</span>
           </div>
 
-          {/* Row 1 Right — Gallery */}
-          <div className="bento-card" onClick={() => navigate('/portfolios')}>
-            <div className="bento-bg bento-bg-3"><div className="bento-pattern" /></div>
-            <div className="bento-content">
-              <div className="bento-badge">精选</div>
-              <PictureOutlined className="bento-icon" />
-              <h3>作品画廊</h3>
-              <p>浏览海量精品样片，发现最新摄影趋势</p>
-              <span className="bento-link">浏览画廊 <RightOutlined /></span>
+          <div className="feature-card" onClick={() => navigate('/portfolios')}>
+            <div className="feature-icon-box">
+              <PictureOutlined />
             </div>
+            <h3>作品画廊</h3>
+            <p>海量精品样片，发现最新摄影趋势与灵感</p>
+            <span className="feature-stat">50,000+ 作品</span>
           </div>
 
-          {/* Row 2 Right — All-in-one */}
-          <div className="bento-card bento-wide" onClick={() => navigate('/register')}>
-            <div className="bento-bg bento-bg-4"><div className="bento-pattern" /></div>
-            <div className="bento-content">
-              <div className="bento-badge">PRO</div>
-              <ThunderboltOutlined className="bento-icon" />
-              <h3>一站式工作台</h3>
-              <p>合同·发票·档期·CRM·交付 — 全在线搞定</p>
-              <div className="bento-features">
-                <span>📄 合同</span><span>🧾 发票</span><span>📅 档期</span>
-                <span>👥 CRM</span><span>📦 交付</span>
-              </div>
-              <span className="bento-link">免费入驻 <RightOutlined /></span>
+          <div className="feature-card" onClick={() => navigate('/register')}>
+            <div className="feature-icon-box">
+              <ThunderboltOutlined />
             </div>
+            <h3>一站式管理</h3>
+            <p>合同、发票、档期、交付，全部在线搞定</p>
+            <span className="feature-stat">免费入驻</span>
           </div>
         </div>
       </section>
