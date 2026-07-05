@@ -7,6 +7,7 @@ import {
 import { useNavigate } from 'react-router-dom'
 import { portfolioApi } from '../../api/portfolioApi'
 import type { Portfolio } from '../../api/portfolioApi'
+import ParticleBackground from '../../components/ParticleBackground'
 import './HomePage.css'
 
 const { Title, Paragraph } = Typography
@@ -39,6 +40,7 @@ const HomePage = () => {
     <div className="home-page">
       {/* ========== Hero ========== */}
       <section className="hero-section">
+        <ParticleBackground count={100} />
         <div className="hero-bg-shapes">
           <div className="shape shape-1" />
           <div className="shape shape-2" />
