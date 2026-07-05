@@ -53,7 +53,7 @@ const HomePage = () => {
                 成为摄影师 <RightOutlined />
               </button>
             </div>
-            <div className="hero-numbers" ref={statsRef}>
+            <div className="hero-numbers">
               <div className="num-block">
                 <span className="num-value">3,200<span className="num-plus">+</span></span>
                 <span className="num-label">认证摄影师</span>
