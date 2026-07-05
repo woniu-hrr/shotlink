@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react'
-import { Typography, Card, Row, Col, Button, Spin, Statistic } from 'antd'
+import { useEffect, useState, useRef } from 'react'
+import { Typography, Row, Col, Button, Spin } from 'antd'
 import {
-  SearchOutlined, CameraOutlined, TeamOutlined, PictureOutlined,
-  RightOutlined, StarFilled, FireOutlined,
+  RightOutlined, StarFilled, FireOutlined, ThunderboltOutlined,
+  PictureOutlined, SearchOutlined, CameraOutlined,
 } from '@ant-design/icons'
 import { useNavigate } from 'react-router-dom'
 import { portfolioApi } from '../../api/portfolioApi'
@@ -12,10 +12,13 @@ import './HomePage.css'
 
 const { Title, Paragraph } = Typography
 
+const TAGS = ['婚纱摄影', '个人写真', '风光大片', '商业摄影', '街拍', '旅拍', '亲子', '宠物', '婚礼跟拍', '毕业照']
+
 const HomePage = () => {
   const navigate = useNavigate()
   const [popularWorks, setPopularWorks] = useState<Portfolio[]>([])
   const [loading, setLoading] = useState(true)
+  const statsRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     portfolioApi.getPopular().then((res) => {
@@ -24,137 +27,184 @@ const HomePage = () => {
     }).catch(() => setLoading(false))
   }, [])
 
-  const features = [
-    { icon: <CameraOutlined />, title: '3000+', subtitle: '认证摄影师', color: '#1677ff', bg: '#e6f4ff' },
-    { icon: <StarFilled />, title: '50,000+', subtitle: '完成拍摄', color: '#52c41a', bg: '#f6ffed' },
-    { icon: <TeamOutlined />, title: '100,000+', subtitle: '平台用户', color: '#fa8c16', bg: '#fff7e6' },
-  ]
-
-  const steps = [
-    { step: '01', icon: <SearchOutlined />, title: '发现摄影师', desc: '按地区、风格、价格精准筛选' },
-    { step: '02', icon: <CameraOutlined />, title: '在线预约', desc: '查看档期，一键发起预约请求' },
-    { step: '03', icon: <PictureOutlined />, title: '拍摄交付', desc: '摄影师拍摄后在线交付作品' },
-  ]
-
   return (
     <div className="home-page">
-      {/* ========== Hero ========== */}
-      <section className="hero-section">
-        <ParticleBackground count={100} />
-        <div className="hero-bg-shapes">
-          <div className="shape shape-1" />
-          <div className="shape shape-2" />
-          <div className="shape shape-3" />
-        </div>
-        <div className="hero-content">
-          <div className="hero-badge">
-            <FireOutlined /> 全新升级 · 2026
-          </div>
-          <h1 className="hero-title">
-            连接<span className="gradient-text">摄影师</span>与
-            <br />
-            每一个<span className="gradient-text">美好瞬间</span>
-          </h1>
-          <p className="hero-subtitle">
-            ShotLink 摄链 — 发现优秀摄影师、在线预约拍摄、社区交流分享，一站式摄影服务平台
-          </p>
-          <div className="hero-actions">
-            <Button type="primary" size="large" className="btn-primary-glow"
-              onClick={() => navigate('/photographers')}>
-              发现摄影师 <RightOutlined />
-            </Button>
-            <Button size="large" className="btn-outline"
-              onClick={() => navigate('/register')}>
-              成为摄影师
-            </Button>
-          </div>
+      {/* ========== HERO — Split Layout ========== */}
+      <section className="hero-fullscreen">
+        <ParticleBackground count={120} />
+        <div className="hero-bg-glow" />
 
-          {/* Stats */}
-          <Row gutter={[48, 24]} className="hero-stats" justify="center">
-            {features.map((f, i) => (
-              <Col key={i}>
-                <div className="stat-item">
-                  <span className="stat-number">{f.title}</span>
-                  <span className="stat-label">{f.subtitle}</span>
-                </div>
-              </Col>
-            ))}
-          </Row>
-        </div>
-      </section>
-
-      {/* ========== How It Works ========== */}
-      <section className="section">
-        <div className="section-header">
-          <Title level={2}>如何运作</Title>
-          <Paragraph type="secondary">三步完成你的专属拍摄</Paragraph>
-        </div>
-        <Row gutter={[32, 32]} justify="center">
-          {steps.map((s, i) => (
-            <Col xs={24} sm={8} key={i}>
-              <div className="step-card">
-                <span className="step-number">{s.step}</span>
-                <div className="step-icon">{s.icon}</div>
-                <Title level={4}>{s.title}</Title>
-                <Paragraph type="secondary">{s.desc}</Paragraph>
+        <div className="hero-grid">
+          {/* Left — Text */}
+          <div className="hero-left">
+            <div className="hero-pill">
+              <ThunderboltOutlined /> AI 智能推荐 · 精准匹配摄影师
+            </div>
+            <h1 className="hero-heading">
+              找到你的<span className="text-gradient-animated">专属</span>
+              <br />
+              摄影师
+            </h1>
+            <p className="hero-desc">
+              从 3000+ 认证摄影师中发现最匹配你风格的创作者，
+              在线预约、一键沟通、轻松交付。
+            </p>
+            <div className="hero-buttons">
+              <button className="btn-neon" onClick={() => navigate('/photographers')}>
+                <SearchOutlined /> 开始探索
+              </button>
+              <button className="btn-ghost-light" onClick={() => navigate('/register')}>
+                成为摄影师 <RightOutlined />
+              </button>
+            </div>
+            <div className="hero-numbers" ref={statsRef}>
+              <div className="num-block">
+                <span className="num-value">3,200<span className="num-plus">+</span></span>
+                <span className="num-label">认证摄影师</span>
               </div>
-            </Col>
-          ))}
-        </Row>
+              <div className="num-divider" />
+              <div className="num-block">
+                <span className="num-value">52K<span className="num-plus">+</span></span>
+                <span className="num-label">完成拍摄</span>
+              </div>
+              <div className="num-divider" />
+              <div className="num-block">
+                <span className="num-value">4.9</span>
+                <span className="num-label">
+                  <StarFilled style={{ color: '#fadb14', fontSize: 12 }} />
+                  <StarFilled style={{ color: '#fadb14', fontSize: 12 }} />
+                  <StarFilled style={{ color: '#fadb14', fontSize: 12 }} />
+                  <StarFilled style={{ color: '#fadb14', fontSize: 12 }} />
+                  <StarFilled style={{ color: '#fadb14', fontSize: 12 }} />
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* Right — Visual showcase */}
+          <div className="hero-right">
+            <div className="hero-visual">
+              <div className="floating-card card-1">
+                <div className="fc-img" />
+                <div className="fc-info">
+                  <strong>婚纱旅拍</strong>
+                  <span>¥3,000 起</span>
+                </div>
+              </div>
+              <div className="floating-card card-2">
+                <div className="fc-img" />
+                <div className="fc-info">
+                  <strong>城市街拍</strong>
+                  <span>¥1,500 起</span>
+                </div>
+              </div>
+              <div className="floating-card card-3">
+                <div className="fc-img" />
+                <div className="fc-info">
+                  <strong>个人写真</strong>
+                  <span>¥2,000 起</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Scrolling tags */}
+        <div className="scroll-tags">
+          <div className="scroll-tags-track">
+            {[...TAGS, ...TAGS].map((tag, i) => (
+              <span key={i} className="scroll-tag">{tag}</span>
+            ))}
+          </div>
+        </div>
       </section>
 
-      {/* ========== Popular Works ========== */}
-      <section className="section section-dark">
-        <div className="section-header">
-          <Title level={2} style={{ color: '#fff' }}>🔥 精选作品</Title>
-          <Paragraph style={{ color: 'rgba(255,255,255,0.7)' }}>发现摄影师的精彩创作</Paragraph>
+      {/* ========== BENTO Features ========== */}
+      <section className="section-bento">
+        <div className="bento-header">
+          <span className="section-label">WHY SHOTLINK</span>
+          <Title level={2}>为什么选择 ShotLink？</Title>
         </div>
 
+        <div className="bento-grid">
+          <div className="bento-card bento-large" onClick={() => navigate('/photographers')}>
+            <div className="bento-bg bento-bg-1" />
+            <div className="bento-content">
+              <CameraOutlined className="bento-icon" />
+              <h3>智能匹配</h3>
+              <p>AI 根据你的需求自动推荐最合适的摄影师，省去筛选时间</p>
+              <span className="bento-link">探索摄影师 <RightOutlined /></span>
+            </div>
+          </div>
+
+          <div className="bento-card" onClick={() => navigate('/community')}>
+            <div className="bento-bg bento-bg-2" />
+            <div className="bento-content">
+              <FireOutlined className="bento-icon" />
+              <h3>摄影社区</h3>
+              <p>10 万+ 摄影师交流技巧、分享作品</p>
+            </div>
+          </div>
+
+          <div className="bento-card" onClick={() => navigate('/portfolios')}>
+            <div className="bento-bg bento-bg-3" />
+            <div className="bento-content">
+              <PictureOutlined className="bento-icon" />
+              <h3>作品画廊</h3>
+              <p>浏览海量精品样片，获取拍摄灵感</p>
+            </div>
+          </div>
+
+          <div className="bento-card bento-wide" onClick={() => navigate('/register')}>
+            <div className="bento-bg bento-bg-4" />
+            <div className="bento-content">
+              <ThunderboltOutlined className="bento-icon" />
+              <h3>一站式管理</h3>
+              <p>合同、发票、档期、交付 — 全部在线搞定</p>
+              <span className="bento-link">立即入驻 <RightOutlined /></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ========== GALLERY Strip ========== */}
+      <section className="section-gallery">
+        <div className="bento-header">
+          <span className="section-label">FEATURED</span>
+          <Title level={2} style={{ color: '#fff' }}>精选作品</Title>
+        </div>
         {loading ? (
-          <div style={{ textAlign: 'center', padding: 60 }}><Spin size="large" /></div>
+          <div style={{ textAlign: 'center', padding: 80 }}><Spin size="large" /></div>
         ) : (
-          <Row gutter={[20, 20]}>
-            {popularWorks.slice(0, 8).map((p) => (
-              <Col xs={24} sm={12} md={6} key={p.id}>
-                <div className="work-card" onClick={() => navigate(`/portfolios/${p.id}`)}>
-                  <div className="work-card-img"
-                    style={p.coverUrl ? { backgroundImage: `url(${p.coverUrl})` } : undefined}>
-                    {!p.coverUrl && <PictureOutlined style={{ fontSize: 40, color: '#555' }} />}
-                    <div className="work-card-overlay">
-                      <Title level={5} style={{ color: '#fff', margin: 0 }}>{p.title}</Title>
-                      <span style={{ color: 'rgba(255,255,255,0.8)', fontSize: 13 }}>
-                        {p.viewCount} 浏览 · {p.imageCount} 张
-                      </span>
-                    </div>
-                  </div>
+          <div className="gallery-strip">
+            {popularWorks.slice(0, 6).map((p) => (
+              <div key={p.id} className="gallery-item" onClick={() => navigate(`/portfolios/${p.id}`)}>
+                <div className="gi-img"
+                  style={p.coverUrl ? { backgroundImage: `url(${p.coverUrl})` } : undefined}>
+                  {!p.coverUrl && <PictureOutlined />}
                 </div>
-              </Col>
+                <div className="gi-info">
+                  <strong>{p.title}</strong>
+                  <span>{p.viewCount} 浏览</span>
+                </div>
+              </div>
             ))}
-          </Row>
+          </div>
         )}
-
-        <div style={{ textAlign: 'center', marginTop: 32 }}>
-          <Button ghost size="large" onClick={() => navigate('/portfolios')}>
-            浏览全部作品 <RightOutlined />
-          </Button>
-        </div>
       </section>
 
       {/* ========== CTA ========== */}
-      <section className="section cta-section">
-        <Title level={2} style={{ color: '#fff' }}>准备好开始了吗？</Title>
-        <Paragraph style={{ color: 'rgba(255,255,255,0.85)', fontSize: 18, marginBottom: 32 }}>
-          无论你是想找摄影师记录重要时刻，还是想展示你的摄影才华，ShotLink 都是你的最佳选择
-        </Paragraph>
-        <div style={{ display: 'flex', gap: 16, justifyContent: 'center', flexWrap: 'wrap' }}>
-          <Button type="primary" size="large" onClick={() => navigate('/register')}
-            style={{ height: 48, paddingInline: 32, borderRadius: 24, fontSize: 16 }}>
-            免费注册
-          </Button>
-          <Button ghost size="large" onClick={() => navigate('/photographers')}
-            style={{ height: 48, paddingInline: 32, borderRadius: 24, fontSize: 16 }}>
-            浏览摄影师
-          </Button>
+      <section className="cta-full">
+        <div className="cta-glow" />
+        <h2>准备好找到你的摄影师了吗？</h2>
+        <p>免费注册 · 浏览作品 · 在线预约 · 一站式完成</p>
+        <div className="cta-actions">
+          <button className="btn-neon btn-neon-lg" onClick={() => navigate('/register')}>
+            立即免费注册
+          </button>
+          <button className="btn-ghost-light btn-ghost-lg" onClick={() => navigate('/photographers')}>
+            先看看摄影师
+          </button>
         </div>
       </section>
     </div>
