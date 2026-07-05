@@ -130,68 +130,63 @@ const HomePage = () => {
         </div>
 
         <div className="bento-grid">
-          {/* Large card — Smart Match */}
+          {/* Row 1+2 Left — Large */}
           <div className="bento-card bento-xl" onClick={() => navigate('/photographers')}>
-            <div className="bento-bg bento-bg-1">
-              <div className="bento-pattern" />
-            </div>
+            <div className="bento-bg bento-bg-1"><div className="bento-pattern" /></div>
             <div className="bento-content">
               <div className="bento-badge">AI 驱动</div>
               <CameraOutlined className="bento-icon" />
               <h3>智能匹配摄影师</h3>
-              <p>输入你的需求、风格偏好和预算，AI 自动推荐最合适的摄影师，告别海量筛选</p>
+              <p>输入需求、风格和预算，AI 自动推荐最合适的摄影师</p>
               <div className="bento-stats">
                 <div><strong>3,200+</strong><span>认证摄影师</span></div>
                 <div><strong>98%</strong><span>匹配满意度</span></div>
-                <div><strong>2 分钟</strong><span>找到心仪摄影师</span></div>
+                <div><strong>2min</strong><span>精准匹配</span></div>
               </div>
               <span className="bento-link">开始匹配 <RightOutlined /></span>
             </div>
           </div>
 
-          {/* Top-right — Community */}
+          {/* Row 1+2 Middle — Tall */}
           <div className="bento-card bento-tall" onClick={() => navigate('/community')}>
-            <div className="bento-bg bento-bg-2">
-              <div className="bento-pattern" />
-            </div>
+            <div className="bento-bg bento-bg-2"><div className="bento-pattern" /></div>
             <div className="bento-content">
-              <div className="bento-badge">热门</div>
-              <FireOutlined className="bento-icon" />
-              <h3>摄影社区</h3>
-              <p>10 万+ 摄影师在这里交流技巧、分享作品、讨论器材</p>
+              <div>
+                <div className="bento-badge">热门</div>
+                <FireOutlined className="bento-icon" />
+                <h3>摄影社区</h3>
+                <p>10 万+ 摄影师交流技巧、分享作品</p>
+              </div>
               <div className="bento-avatars">
                 <div className="bento-avatar a1" />
                 <div className="bento-avatar a2" />
                 <div className="bento-avatar a3" />
-                <span className="bento-avatar-count">+999</span>
+                <div className="bento-avatar a4" />
+                <span className="bento-avatar-count">+2.8k 在线</span>
               </div>
             </div>
           </div>
 
-          {/* Middle-right — Gallery */}
+          {/* Row 1 Right — Gallery */}
           <div className="bento-card" onClick={() => navigate('/portfolios')}>
-            <div className="bento-bg bento-bg-3">
-              <div className="bento-pattern" />
-            </div>
+            <div className="bento-bg bento-bg-3"><div className="bento-pattern" /></div>
             <div className="bento-content">
               <div className="bento-badge">精选</div>
               <PictureOutlined className="bento-icon" />
               <h3>作品画廊</h3>
-              <p>浏览海量精品样片，获取拍摄灵感，发现最新摄影趋势</p>
+              <p>浏览海量精品样片，发现最新摄影趋势</p>
               <span className="bento-link">浏览画廊 <RightOutlined /></span>
             </div>
           </div>
 
-          {/* Bottom — All-in-one */}
+          {/* Row 2 Right — All-in-one */}
           <div className="bento-card bento-wide" onClick={() => navigate('/register')}>
-            <div className="bento-bg bento-bg-4">
-              <div className="bento-pattern" />
-            </div>
+            <div className="bento-bg bento-bg-4"><div className="bento-pattern" /></div>
             <div className="bento-content">
               <div className="bento-badge">PRO</div>
               <ThunderboltOutlined className="bento-icon" />
-              <h3>一站式摄影师工作台</h3>
-              <p>合同管理 · 发票开具 · 档期日历 · 客户 CRM · 照片交付 — 摄影师需要的，全都在这里</p>
+              <h3>一站式工作台</h3>
+              <p>合同·发票·档期·CRM·交付 — 全在线搞定</p>
               <div className="bento-features">
                 <span>📄 合同</span><span>🧾 发票</span><span>📅 档期</span>
                 <span>👥 CRM</span><span>📦 交付</span>
