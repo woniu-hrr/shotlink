@@ -60,8 +60,10 @@ const MainLayout = () => {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          background: '#fff',
-          borderBottom: '1px solid #f0f0f0',
+          background: 'rgba(255,255,255,0.85)',
+          backdropFilter: 'blur(12px)',
+          WebkitBackdropFilter: 'blur(12px)',
+          borderBottom: '1px solid rgba(0,0,0,0.06)',
           padding: '0 24px',
           position: 'sticky',
           top: 0,
@@ -121,8 +123,30 @@ const MainLayout = () => {
         <Outlet />
       </Content>
 
-      <Footer style={{ textAlign: 'center', color: '#999' }}>
-        ShotLink ©2026 — 连接摄影师与美好瞬间
+      <Footer style={{
+        background: 'linear-gradient(135deg, #0f0c29 0%, #302b63 100%)',
+        color: 'rgba(255,255,255,0.7)',
+        padding: '40px 24px',
+      }}>
+        <div style={{ maxWidth: 1000, margin: '0 auto', display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: 24 }}>
+          <div>
+            <h3 style={{ color: '#fff', marginBottom: 8 }}>
+              <CameraOutlined /> ShotLink 摄链
+            </h3>
+            <p style={{ margin: 0 }}>连接摄影师与美好瞬间</p>
+          </div>
+          <div>
+            <p style={{ color: '#fff', marginBottom: 4 }}>快速链接</p>
+            <p style={{ margin: 0, cursor: 'pointer' }} onClick={() => navigate('/photographers')}>找摄影师</p>
+            <p style={{ margin: 0, cursor: 'pointer' }} onClick={() => navigate('/portfolios')}>作品广场</p>
+            <p style={{ margin: 0, cursor: 'pointer' }} onClick={() => navigate('/community')}>摄影社区</p>
+          </div>
+          <div>
+            <p style={{ color: '#fff', marginBottom: 4 }}>关于</p>
+            <p style={{ margin: 0 }}>©2026 ShotLink</p>
+            <p style={{ margin: 0 }}>企业级全栈项目</p>
+          </div>
+        </div>
       </Footer>
     </Layout>
   )

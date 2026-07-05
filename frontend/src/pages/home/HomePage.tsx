@@ -1,9 +1,13 @@
 import { useEffect, useState } from 'react'
-import { Typography, Card, Row, Col, Button, Spin } from 'antd'
-import { SearchOutlined, CameraOutlined, TeamOutlined, PictureOutlined } from '@ant-design/icons'
+import { Typography, Card, Row, Col, Button, Spin, Statistic } from 'antd'
+import {
+  SearchOutlined, CameraOutlined, TeamOutlined, PictureOutlined,
+  RightOutlined, StarFilled, FireOutlined,
+} from '@ant-design/icons'
 import { useNavigate } from 'react-router-dom'
 import { portfolioApi } from '../../api/portfolioApi'
 import type { Portfolio } from '../../api/portfolioApi'
+import './HomePage.css'
 
 const { Title, Paragraph } = Typography
 
@@ -20,99 +24,137 @@ const HomePage = () => {
   }, [])
 
   const features = [
-    {
-      icon: <CameraOutlined style={{ fontSize: 48, color: '#1677ff' }} />,
-      title: '发现优秀摄影师',
-      description: '按地区、风格、价格筛选最适合你的摄影师',
-    },
-    {
-      icon: <SearchOutlined style={{ fontSize: 48, color: '#52c41a' }} />,
-      title: '轻松预约拍摄',
-      description: '在线查看档期、发起预约，从沟通到交付一站式完成',
-    },
-    {
-      icon: <TeamOutlined style={{ fontSize: 48, color: '#fa8c16' }} />,
-      title: '摄影社区交流',
-      description: '与摄影爱好者分享作品、技巧，参与话题讨论',
-    },
+    { icon: <CameraOutlined />, title: '3000+', subtitle: '认证摄影师', color: '#1677ff', bg: '#e6f4ff' },
+    { icon: <StarFilled />, title: '50,000+', subtitle: '完成拍摄', color: '#52c41a', bg: '#f6ffed' },
+    { icon: <TeamOutlined />, title: '100,000+', subtitle: '平台用户', color: '#fa8c16', bg: '#fff7e6' },
+  ]
+
+  const steps = [
+    { step: '01', icon: <SearchOutlined />, title: '发现摄影师', desc: '按地区、风格、价格精准筛选' },
+    { step: '02', icon: <CameraOutlined />, title: '在线预约', desc: '查看档期，一键发起预约请求' },
+    { step: '03', icon: <PictureOutlined />, title: '拍摄交付', desc: '摄影师拍摄后在线交付作品' },
   ]
 
   return (
-    <div style={{ maxWidth: 1200, margin: '0 auto', padding: '48px 24px' }}>
-      {/* Hero */}
-      <div style={{ textAlign: 'center', marginBottom: 64 }}>
-        <Title level={1} style={{ fontSize: 48, marginBottom: 16 }}>
-          ShotLink 摄链
-        </Title>
-        <Paragraph style={{ fontSize: 20, color: '#666', maxWidth: 600, margin: '0 auto 32px' }}>
-          连接摄影师与美好瞬间 — 发现、预约、交付，一站式摄影服务平台
-        </Paragraph>
-        <div style={{ display: 'flex', gap: 16, justifyContent: 'center' }}>
-          <Button type="primary" size="large" onClick={() => navigate('/photographers')}>
-            浏览摄影师
-          </Button>
-          <Button size="large" onClick={() => navigate('/register')}>
-            成为摄影师
-          </Button>
+    <div className="home-page">
+      {/* ========== Hero ========== */}
+      <section className="hero-section">
+        <div className="hero-bg-shapes">
+          <div className="shape shape-1" />
+          <div className="shape shape-2" />
+          <div className="shape shape-3" />
         </div>
-      </div>
+        <div className="hero-content">
+          <div className="hero-badge">
+            <FireOutlined /> 全新升级 · 2026
+          </div>
+          <h1 className="hero-title">
+            连接<span className="gradient-text">摄影师</span>与
+            <br />
+            每一个<span className="gradient-text">美好瞬间</span>
+          </h1>
+          <p className="hero-subtitle">
+            ShotLink 摄链 — 发现优秀摄影师、在线预约拍摄、社区交流分享，一站式摄影服务平台
+          </p>
+          <div className="hero-actions">
+            <Button type="primary" size="large" className="btn-primary-glow"
+              onClick={() => navigate('/photographers')}>
+              发现摄影师 <RightOutlined />
+            </Button>
+            <Button size="large" className="btn-outline"
+              onClick={() => navigate('/register')}>
+              成为摄影师
+            </Button>
+          </div>
 
-      {/* Features */}
-      <Row gutter={[24, 24]} style={{ marginBottom: 64 }}>
-        {features.map((f, i) => (
-          <Col xs={24} sm={8} key={i}>
-            <Card hoverable style={{ textAlign: 'center', height: '100%' }}
-              bodyStyle={{ padding: '32px 24px' }}>
-              <div style={{ marginBottom: 16 }}>{f.icon}</div>
-              <Title level={3}>{f.title}</Title>
-              <Paragraph style={{ color: '#666' }}>{f.description}</Paragraph>
-            </Card>
-          </Col>
-        ))}
-      </Row>
+          {/* Stats */}
+          <Row gutter={[48, 24]} className="hero-stats" justify="center">
+            {features.map((f, i) => (
+              <Col key={i}>
+                <div className="stat-item">
+                  <span className="stat-number">{f.title}</span>
+                  <span className="stat-label">{f.subtitle}</span>
+                </div>
+              </Col>
+            ))}
+          </Row>
+        </div>
+      </section>
 
-      {/* Popular Works */}
-      <div style={{ marginBottom: 24 }}>
-        <Title level={2}>🔥 精选作品</Title>
-      </div>
-      {loading ? (
-        <Spin />
-      ) : (
-        <Row gutter={[16, 16]}>
-          {popularWorks.map((p) => (
-            <Col xs={12} sm={8} md={6} key={p.id}>
-              <Card
-                hoverable
-                onClick={() => navigate(`/portfolios/${p.id}`)}
-                cover={
-                  p.coverUrl ? (
-                    <div style={{ height: 200, background: `url(${p.coverUrl}) center/cover` }} />
-                  ) : (
-                    <div style={{
-                      height: 200, background: '#f0f0f0',
-                      display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    }}>
-                      <PictureOutlined style={{ fontSize: 48, color: '#ccc' }} />
-                    </div>
-                  )
-                }
-              >
-                <Card.Meta
-                  title={p.title}
-                  description={`${p.viewCount} 次浏览 · ${p.imageCount} 张图`}
-                />
-              </Card>
-            </Col>
-          ))}
-          {popularWorks.length === 0 && (
-            <Col span={24}>
-              <div style={{ textAlign: 'center', padding: 40, color: '#999' }}>
-                还没有作品，<Button type="link" onClick={() => navigate('/register')}>成为第一个摄影师</Button>
+      {/* ========== How It Works ========== */}
+      <section className="section">
+        <div className="section-header">
+          <Title level={2}>如何运作</Title>
+          <Paragraph type="secondary">三步完成你的专属拍摄</Paragraph>
+        </div>
+        <Row gutter={[32, 32]} justify="center">
+          {steps.map((s, i) => (
+            <Col xs={24} sm={8} key={i}>
+              <div className="step-card">
+                <span className="step-number">{s.step}</span>
+                <div className="step-icon">{s.icon}</div>
+                <Title level={4}>{s.title}</Title>
+                <Paragraph type="secondary">{s.desc}</Paragraph>
               </div>
             </Col>
-          )}
+          ))}
         </Row>
-      )}
+      </section>
+
+      {/* ========== Popular Works ========== */}
+      <section className="section section-dark">
+        <div className="section-header">
+          <Title level={2} style={{ color: '#fff' }}>🔥 精选作品</Title>
+          <Paragraph style={{ color: 'rgba(255,255,255,0.7)' }}>发现摄影师的精彩创作</Paragraph>
+        </div>
+
+        {loading ? (
+          <div style={{ textAlign: 'center', padding: 60 }}><Spin size="large" /></div>
+        ) : (
+          <Row gutter={[20, 20]}>
+            {popularWorks.slice(0, 8).map((p) => (
+              <Col xs={24} sm={12} md={6} key={p.id}>
+                <div className="work-card" onClick={() => navigate(`/portfolios/${p.id}`)}>
+                  <div className="work-card-img"
+                    style={p.coverUrl ? { backgroundImage: `url(${p.coverUrl})` } : undefined}>
+                    {!p.coverUrl && <PictureOutlined style={{ fontSize: 40, color: '#555' }} />}
+                    <div className="work-card-overlay">
+                      <Title level={5} style={{ color: '#fff', margin: 0 }}>{p.title}</Title>
+                      <span style={{ color: 'rgba(255,255,255,0.8)', fontSize: 13 }}>
+                        {p.viewCount} 浏览 · {p.imageCount} 张
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </Col>
+            ))}
+          </Row>
+        )}
+
+        <div style={{ textAlign: 'center', marginTop: 32 }}>
+          <Button ghost size="large" onClick={() => navigate('/portfolios')}>
+            浏览全部作品 <RightOutlined />
+          </Button>
+        </div>
+      </section>
+
+      {/* ========== CTA ========== */}
+      <section className="section cta-section">
+        <Title level={2} style={{ color: '#fff' }}>准备好开始了吗？</Title>
+        <Paragraph style={{ color: 'rgba(255,255,255,0.85)', fontSize: 18, marginBottom: 32 }}>
+          无论你是想找摄影师记录重要时刻，还是想展示你的摄影才华，ShotLink 都是你的最佳选择
+        </Paragraph>
+        <div style={{ display: 'flex', gap: 16, justifyContent: 'center', flexWrap: 'wrap' }}>
+          <Button type="primary" size="large" onClick={() => navigate('/register')}
+            style={{ height: 48, paddingInline: 32, borderRadius: 24, fontSize: 16 }}>
+            免费注册
+          </Button>
+          <Button ghost size="large" onClick={() => navigate('/photographers')}
+            style={{ height: 48, paddingInline: 32, borderRadius: 24, fontSize: 16 }}>
+            浏览摄影师
+          </Button>
+        </div>
+      </section>
     </div>
   )
 }
